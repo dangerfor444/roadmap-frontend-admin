@@ -1,0 +1,44 @@
+# Node.js
+node_modules/
+.env
+.DS_Store
+*.log
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor configs (например, VSCode)
+.vscode/
+.cursor/
+.idea/
+
+# OS system files
+Thumbs.db
+
+*.local
+*.pid
+*.sock
+*.pid.lock
+
+# Бэкапы и дампы базы
+*.sql
+*.dump
+
+# Кэш и временные файлы Node.js
+.cache/
+dist/
+coverage/
+tmp/
+temp/
+
+# PM2 logs (если используешь)
+.pids/
+logs/
+
+# PostgreSQL сокеты (если вдруг создаются локально)
+*.s.PGSQL.*
+
+# MacOS лишние метаданные
+Icon?

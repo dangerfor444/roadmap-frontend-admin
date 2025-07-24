@@ -41,6 +41,8 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
   const [loadingVotes, setLoadingVotes] = useState(false);
   const [editModal, setEditModal] = useState<{open: boolean, idea: any | null}>({open: false, idea: null});
   const [editLoading, setEditLoading] = useState(false);
+  const [stateLoading, setStateLoading] = useState(false);
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
   const handleResetDates = () => {
     setDateFrom(get14DaysAgo());
@@ -186,7 +188,13 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
         });
         if (response.ok) {
           const data = await response.json();
-          setIdeaVotes(prev => ({ ...prev, [idea.id]: Array.isArray(data.votes) ? data.votes : data }));
+          setIdeaVotes(prev => ({
+            ...prev,
+            [idea.id]: (Array.isArray(data.votes) ? data.votes : data).map((vote: any) => ({
+              ...vote,
+              type: vote.type || (vote.reaction === '👍' ? 'like' : vote.reaction === '👎' ? 'dislike' : undefined)
+            }))
+          }));
         }
       } finally {
         setLoadingVotes(false);
@@ -228,6 +236,29 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
     }
   };
 
+  const handleToggleState = async (idea: any, newState: 'visible' | 'hidden') => {
+    setStateLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const apiKey = selectedServiceApiKey;
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/ideas/${idea.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'Authorization': token ? `Bearer ${token}` : '',
+        },
+        body: JSON.stringify({ state: newState }),
+      });
+      if (!response.ok) throw new Error('Ошибка при смене видимости');
+      setIdeas(prev => prev.map(i => i.id === idea.id ? { ...i, state: newState } : i));
+    } catch (e) {
+      alert('Ошибка при смене видимости!');
+    } finally {
+      setStateLoading(false);
+    }
+  };
+
   // Фильтрация по дате
   const filterByDate = (idea: any) => {
     let ideaDate = idea.date || idea.created_at || '';
@@ -259,6 +290,37 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
   return (
     <main className={styles.adminContainer}>
       <h2 className={styles.serviceTitle}>Идеи для сервиса: {selectedService}</h2>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
+        <button
+          onClick={() => setViewMode('cards')}
+          style={{
+            background: viewMode === 'cards' ? '#1976d2' : '#fff',
+            color: viewMode === 'cards' ? '#fff' : '#1976d2',
+            border: '1px solid #1976d2',
+            borderRadius: 6,
+            padding: '6px 18px',
+            marginRight: 8,
+            cursor: 'pointer',
+            fontWeight: 500
+          }}
+        >
+          Карточки
+        </button>
+        <button
+          onClick={() => setViewMode('table')}
+          style={{
+            background: viewMode === 'table' ? '#1976d2' : '#fff',
+            color: viewMode === 'table' ? '#fff' : '#1976d2',
+            border: '1px solid #1976d2',
+            borderRadius: 6,
+            padding: '6px 18px',
+            cursor: 'pointer',
+            fontWeight: 500
+          }}
+        >
+          Таблица
+        </button>
+      </div>
       <div className={styles.filtersRow}>
         <button
           type="button"
@@ -300,21 +362,60 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
         </button>
       </div>
       <div className={styles.cardsGrid}>
-        {filteredIdeas.length === 0 ? (
-          <div style={{textAlign: 'center', color: '#888', width: '100%'}}>Нет идей для этого сервиса</div>
+        {viewMode === 'cards' ? (
+          filteredIdeas.length === 0 ? (
+            <div style={{textAlign: 'center', color: '#888', width: '100%'}}>Нет идей для этого сервиса</div>
+          ) : (
+            filteredIdeas.map(idea => (
+              <div key={idea.id} className={styles.ideaCard} onClick={() => handleOpenIdea(idea)}>
+                <div className={styles.ideaCardTitle}>{idea.title}</div>
+                <div className={styles.ideaCardBody}>{
+                  typeof idea.body === 'string' && idea.body.length > 30
+                    ? idea.body.slice(0, 15) + '...'
+                    : idea.body
+                }</div>
+                <div className={styles.ideaCardDate}>{formatDate(idea.date || idea.created_at || '')}</div>
+                <div className={styles.ideaCardStatus + ' ' + styles['status_' + (idea.status || 'new')]}>Статус: {statusLabel(idea.status)}</div>
+              </div>
+            ))
+          )
         ) : (
-          filteredIdeas.map(idea => (
-            <div key={idea.id} className={styles.ideaCard} onClick={() => handleOpenIdea(idea)}>
-              <div className={styles.ideaCardTitle}>{idea.title}</div>
-              <div className={styles.ideaCardBody}>{
-                typeof idea.body === 'string' && idea.body.length > 30
-                  ? idea.body.slice(0, 15) + '...'
-                  : idea.body
-              }</div>
-              <div className={styles.ideaCardDate}>{formatDate(idea.date || idea.created_at || '')}</div>
-              <div className={styles.ideaCardStatus + ' ' + styles['status_' + (idea.status || 'new')]}>Статус: {statusLabel(idea.status)}</div>
-            </div>
-          ))
+          <div className={styles.ideasTableWrapper}>
+            <table className={styles.ideasTable}>
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Описание</th>
+                  <th>Дата</th>
+                  <th>Реакции</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredIdeas.length === 0 ? (
+                  <tr><td colSpan={5} style={{textAlign: 'center', color: '#888'}}>Нет идей для этого сервиса</td></tr>
+                ) : (
+                  filteredIdeas.map(idea => {
+                    const votes = ideaVotes[idea.id] || [];
+                    const likes = votes.filter((v: any) => v.type === 'like').length;
+                    const dislikes = votes.filter((v: any) => v.type === 'dislike').length;
+                    return (
+                      <tr key={idea.id} onClick={() => handleOpenIdea(idea)}>
+                        <td className={styles.ideaTitleCell}>{idea.title}</td>
+                        <td className={styles.ideaBodyCell}>{typeof idea.body === 'string' && idea.body.length > 60 ? idea.body.slice(0, 60) + '...' : idea.body}</td>
+                        <td>{formatDate(idea.date || idea.created_at || '')}</td>
+                        <td className={styles.reactionsCell}>
+                          <span title="Лайки" className={styles.likeIcon}>👍 {likes}</span>
+                          <span title="Дизлайки" className={styles.dislikeIcon}>👎 {dislikes}</span>
+                        </td>
+                        <td className={styles.statusCell + ' ' + styles['status_' + (idea.status || 'new')]}>{statusLabel(idea.status)}</td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       {/* Модальное окно идеи */}
@@ -330,6 +431,8 @@ const MainPage: React.FC<MainPageProps> = ({ ideas, setIdeas, selectedService, s
           onClose={handleCloseIdea}
           votes={ideaVotes[ideaModal.idea.id]}
           onEdit={() => handleOpenEdit(ideaModal.idea)}
+          onToggleState={newState => handleToggleState(ideaModal.idea, newState)}
+          stateLoading={stateLoading}
         />
       )}
       {editModal.open && editModal.idea && (

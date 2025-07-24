@@ -138,26 +138,57 @@
 
 .ideasTableWrapper {
   overflow-x: auto;
+  width: 100%;
 }
-
 .ideasTable {
   width: 100%;
   border-collapse: collapse;
+  min-width: 700px;
   background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+  margin-bottom: 2rem;
 }
-
 .ideasTable th, .ideasTable td {
-  padding: 0.9rem 1.1rem;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 1rem;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
   text-align: left;
+  font-size: 1rem;
 }
-
 .ideasTable th {
-  background: #f5f5f5;
+  background: #f6f9fe;
   font-weight: 600;
   color: #1976d2;
-  text-align: center;
+}
+.ideasTable tr {
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.ideasTable tr:hover {
+  background: #e3eaf6;
+}
+.ideasTable .ideaTitleCell {
+  max-width: 220px;
+  word-break: break-word;
+}
+.ideasTable .ideaBodyCell {
+  max-width: 320px;
+  word-break: break-word;
+}
+.ideasTable .reactionsCell {
+  white-space: nowrap;
+}
+.ideasTable .likeIcon {
+  color: #1976d2;
+  font-weight: 600;
+  margin-right: 10px;
+}
+.ideasTable .dislikeIcon {
+  color: #e53935;
+  font-weight: 600;
+}
+.ideasTable .statusCell {
+  font-weight: 500;
 }
 
 .visibleRow {

@@ -27,7 +27,6 @@ function App() {
         });
         if (!response.ok) throw new Error('Ошибка загрузки сервисов');
         const data = await response.json();
-        console.log('Сервисы с бэкенда:', data);
         setServices(data);
         if (data.length > 0) setSelectedService(data[0].name);
       } catch (e) {
@@ -52,7 +51,6 @@ function App() {
         });
         if (!response.ok) throw new Error('Ошибка загрузки идей');
         const data = await response.json();
-        console.log('Идеи с бэкенда:', data);
         setIdeas(data.ideas);
       } catch (e) {
         // Можно добавить обработку ошибки

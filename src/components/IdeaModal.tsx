@@ -18,6 +18,8 @@ interface IdeaModalProps {
   onClose: () => void;
   votes?: Vote[];
   onEdit: () => void;
+  onToggleState: (newState: 'visible' | 'hidden') => void;
+  stateLoading?: boolean;
 }
 
 function formatDate(dateString?: string) {
@@ -48,7 +50,9 @@ const IdeaModal: React.FC<IdeaModalProps> = ({
   onComments,
   onClose,
   votes,
-  onEdit
+  onEdit,
+  onToggleState,
+  stateLoading
 }) => {
   const likes = votes?.filter(v => v.type === 'like').length || 0;
   const dislikes = votes?.filter(v => v.type === 'dislike').length || 0;
@@ -83,9 +87,19 @@ const IdeaModal: React.FC<IdeaModalProps> = ({
             >
               Обновить статус
             </button>
+            <button
+              className={styles.toggleStateBtn}
+              onClick={() => onToggleState(idea.state === 'visible' ? 'hidden' : 'visible')}
+              disabled={stateLoading}
+              style={{marginTop: 8}}
+            >
+              {stateLoading
+                ? 'Сохраняю...'
+                : idea.state === 'visible' ? 'Скрыть' : 'Опубликовать'}
+            </button>
           </div>
           <div className={styles.buttonsBlock}>
-            <button className={styles.spamBtn} onClick={onSpam}>Спам</button>
+            <button className={styles.spamBtn} onClick={onSpam}>Удалить</button>
             <button className={styles.commentBtn} onClick={onComments}>Комментарии</button>
           </div>
         </div>
