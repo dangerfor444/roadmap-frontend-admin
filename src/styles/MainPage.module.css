@@ -1,0 +1,416 @@
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.columnsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.section {
+  background: #f6f9fe;
+  border-radius: 20px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-height: 0;
+  max-height: 550px;
+}
+
+.sectionDone {
+  background: #eafaf1;
+  border-radius: 20px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(56, 142, 60, 0.06);
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-height: 0;
+  max-height: 550px;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionCounter {
+  color: #64748b;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.datesRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.dateButton {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  color: #1976d2;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+
+.dateButtonActive {
+  background: #1976d2;
+  color: #fff;
+  border: 1px solid #1976d2;
+}
+
+.ideasGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #c2d3ee #e3eaf6;
+  align-content: start;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.ideasGrid::-webkit-scrollbar {
+  width: 8px;
+  background: #e3eaf6;
+  border-radius: 8px;
+}
+.ideasGrid::-webkit-scrollbar-thumb {
+  background: #c2d3ee;
+  border-radius: 8px;
+}
+.ideasGrid {
+  scrollbar-width: thin;
+  scrollbar-color: #c2d3ee #e3eaf6;
+}
+
+.sectionDone .ideasGrid {
+  overflow-y: auto;
+  max-height: 100%;
+  align-content: start;
+}
+
+.adminContainer {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+}
+
+.serviceTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #1976d2;
+}
+
+.ideasTableWrapper {
+  overflow-x: auto;
+}
+
+.ideasTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.ideasTable th, .ideasTable td {
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.ideasTable th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #1976d2;
+  text-align: center;
+}
+
+.visibleRow {
+  background: #e3fcec;
+}
+
+.publishBtn, .spamBtn {
+  min-width: 130px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 0;
+}
+
+.publishBtn {
+  background: #388e3c;
+  color: #fff;
+}
+.publishBtn:hover {
+  background: #2e7031;
+}
+
+.spamBtn {
+  background: #e53935;
+  color: #fff;
+}
+.spamBtn:hover {
+  background: #b71c1c;
+}
+
+.filtersRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.shiftBtn {
+  background: #f5f5f5;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  border-radius: 6px;
+  padding: 0.3rem 0.9rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.shiftBtn:hover {
+  background: #e3f2fd;
+}
+
+.resetBtn {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffb300;
+  border-radius: 6px;
+  padding: 0.3rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.resetBtn:hover {
+  background: #ffe0b2;
+}
+
+.dateInput {
+  font-size: 1rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  color: #222;
+}
+
+.dash {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin: 0 0.2rem;
+}
+
+.actionsCell {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.ideaCard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border: 1px solid #e0e0e0;
+}
+.ideaCard:hover {
+  box-shadow: 0 6px 24px rgba(25, 118, 210, 0.13);
+  transform: translateY(-2px) scale(1.01);
+  border-color: #1976d2;
+}
+.ideaCardTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+  white-space: pre-line;
+}
+.ideaCardBody {
+  color: #222;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 2.6em;
+}
+.ideaCardDate {
+  color: #888;
+  font-size: 0.95rem;
+}
+.ideaCardStatus {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+.status_new {
+  color: #1976d2;
+}
+.status_at_work {
+  color: #ff9800;
+}
+.status_done {
+  color: #388e3c;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ideaModalContent {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.13);
+  padding: 2.2rem 2.5rem 2rem 2.5rem;
+  min-width: 340px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.ideaModalBody {
+  color: #222;
+  font-size: 1.08rem;
+}
+.ideaModalDate {
+  color: #888;
+  font-size: 0.98rem;
+}
+.ideaModalStatus {
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+.closeButton {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.closeButton:hover {
+  color: #e53935;
+}
+.spamBtn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background 0.2s;
+}
+.spamBtn:hover {
+  background: #b71c1c;
+}
+.commentBtn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background 0.2s;
+}
+.commentBtn:hover {
+  background: #1565c0;
+}
+
+@media (max-width: 1024px) {
+  .columnsGrid {
+    grid-template-columns: 1fr;
+  }
+  .ideasGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .columnsGrid {
+    grid-template-columns: 1fr;
+  }
+  .ideasGrid {
+    grid-template-columns: 1fr;
+  }
+}

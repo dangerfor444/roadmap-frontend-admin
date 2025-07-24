@@ -1,0 +1,118 @@
+.card {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: 1rem 1rem 0.75rem 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-right: 1rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.вопрос {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.жалоба {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.идея {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.description {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.actionGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.actionButtonActive {
+  color: var(--color-primary);
+}
+
+.counter {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+} 

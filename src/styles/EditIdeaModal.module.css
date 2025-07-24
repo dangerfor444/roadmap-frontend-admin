@@ -1,0 +1,75 @@
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.editModalContent {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.13);
+  padding: 2.2rem 2.5rem 2rem 2.5rem;
+  min-width: 340px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.closeButton {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.closeButton:hover {
+  color: #e53935;
+}
+.fieldBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.label {
+  font-size: 1rem;
+  color: #1976d2;
+  font-weight: 500;
+}
+.input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+.textarea {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  resize: vertical;
+}
+.saveBtn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  transition: background 0.2s;
+}
+.saveBtn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+} 
